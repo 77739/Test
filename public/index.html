@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KMIA VATSIM Landing Cam</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="layout-toolbar" class="layout-toolbar">
+    <button id="layout-toggle" type="button">⚙ Arrange overlay</button>
+    <div id="layout-controls" hidden>
+      <span>Panel size</span><input id="layout-scale" type="range" min="65" max="110" value="82" />
+      <button id="layout-reset" type="button">Reset layout</button>
+      <small>Drag panels to move them. Changes save automatically in this browser.</small>
+    </div>
+  </div>
+  <main class="canvas" aria-label="KMIA VATSIM landing cam overlay">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">MIA</div>
+        <div>
+          <div class="eyebrow">VIRTUAL AIRPORT OBSERVER</div>
+          <div class="brand-title">MIAMI <span>LANDING CAM</span></div>
+        </div>
+      </div>
+      <div class="live-block"><span class="live-dot"></span><span>VATSIM NETWORK</span><b id="network-status">CONNECTING</b></div>
+    </header>
+
+    <section class="left-stack">
+      <div class="panel incoming">
+        <div class="panel-heading"><span>INCOMING FLIGHT</span><span id="arrival-count" class="count">0 ARRIVALS</span></div>
+        <div class="callsign" id="callsign">SCANNING TRAFFIC</div>
+        <div class="aircraft" id="aircraft">Waiting for KMIA arrivals…</div>
+        <div class="route">
+          <div><small>ORIGIN</small><strong id="origin">----</strong><span id="origin-name">Departure airport</span></div>
+          <div class="route-arrow">→</div>
+          <div><small>DESTINATION</small><strong>KMIA</strong><span>Miami International</span></div>
+        </div>
+        <div class="metrics">
+          <div><small>ALTITUDE</small><strong id="altitude">—</strong></div>
+          <div><small>GROUND SPEED</small><strong id="speed">—</strong></div>
+          <div><small>RANGE</small><strong id="range">—</strong></div>
+        </div>
+        <div class="status-line"><span class="status-dot"></span><span id="arrival-status">Searching for filed arrivals to KMIA</span></div>
+      </div>
+
+      <div class="panel queue">
+        <div class="panel-heading"><span>ARRIVAL QUEUE</span><span class="muted">SELECT FLIGHT</span></div>
+        <div id="queue-list" class="queue-list"><div class="empty">Loading live traffic…</div></div>
+      </div>
+    </section>
+
+    <section class="bottom-right">
+      <div class="panel airport">
+        <div class="airport-title"><div><div class="eyebrow">AIRPORT STATUS</div><strong>KMIA <span>·</span> MIAMI, FLORIDA</strong></div><div class="airport-badge">ICAO</div></div>
+        <div class="airport-grid">
+          <div><small>METAR / WEATHER</small><strong id="weather">Loading weather…</strong></div>
+          <div><small>ATIS / RUNWAY</small><strong id="atis">Not connected</strong></div>
+        </div>
+        <div class="airport-foot">Weather is sourced independently. ATIS is shown only when a configured source is available.</div>
+      </div>
+      <div class="panel rating">
+        <div class="panel-heading"><span>LAST LANDING RATING</span><span class="muted">MANUAL ENTRY</span></div>
+        <div class="rating-main"><div><strong id="rating-callsign">NO RATING YET</strong><small id="rating-aircraft">Select a flight after touchdown</small></div><div class="score" id="rating-score">—<small>/10</small></div></div>
+        <div class="rating-note" id="rating-note">Landing rate is not supplied by the VATSIM data feed.</div>
+        <div class="rating-controls">
+          <label>Flight <select id="rating-flight"><option value="">Choose callsign…</option></select></label>
+          <label>Touchdown FPM <input id="fpm" type="number" min="0" max="2000" placeholder="e.g. 145"></label>
+          <label>Score <select id="score-select"><option value="10">10 — Butter</option><option value="9">9 — Excellent</option><option value="8" selected>8 — Smooth</option><option value="7">7 — Good</option><option value="6">6 — Firm</option><option value="5">5 — Hard</option><option value="4">4 — Very hard</option><option value="3">3 — Rough</option><option value="2">2 — Very rough</option><option value="1">1 — Go-around energy</option></select></label>
+          <label>Comment <input id="comment" type="text" maxlength="90" placeholder="Optional: smooth touchdown"></label>
+          <button id="save-rating">PUBLISH RATING</button>
+        </div>
+        <div class="ratings-list" id="ratings-list"></div>
+      </div>
+    </section>
+
+    <footer><span>VATSIM NETWORK DATA · REFRESH ~15 SEC</span><span>COMMUNITY STREAM · NOT REAL-WORLD ATC</span><span id="updated">LAST UPDATE —</span></footer>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
