@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: kmia-vatsim-landing-cam
-    runtime: node
-    plan: free
-    buildCommand: npm install
-    startCommand: npm start
-    healthCheckPath: /health
